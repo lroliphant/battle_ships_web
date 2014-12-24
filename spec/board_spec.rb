@@ -25,7 +25,7 @@ describe Board do
     expect(board).to be_all_sunk
   end
 
-  it 'can report if all ships are sunk' do
+  it 'can report if not all ships are sunk' do
     board.place(ship)
     expect(board).not_to be_all_sunk
   end
