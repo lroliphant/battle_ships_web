@@ -22,10 +22,6 @@ describe Board do
     expect{board.place(sunk_ship)}.to raise_error 'collides with existing ship'
   end
 
-  it 'does not allow ships to go outside board' do
-    expect{board.place(illegal_ship)}.to raise_error 'cannot place ship outside board'
-  end
-
   it 'can receive a hit on a ship' do
     board.place(ship)
     expect(board.receive_hit('A1')).to eq :hit
