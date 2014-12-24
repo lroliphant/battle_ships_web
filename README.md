@@ -146,9 +146,71 @@ Submarine
 Version ‘Motorbike’:
 -------------
 
+```sh
+Board
+  reports missed hit when no ship at position
+  can have a ship
+  does not allow ships to overlap
+  does not allow ships outside the board
+  can receive a hit on a ship
+  can receive a hit on a sub
+  can report if all ships are sunk
+  can report if not all ships are sunk
 
+Destroyer
+  has size 3
+  knows all positions when facing north
+  knows all positions when facing east
+  knows all positions when facing south
+  knows all positions when facing west
+  gets hit in any of the positions it is in
 
+Player
+  can lose
+  can place ships
+  can tell us when a ship is hit
+  can report hit positions
+  can report miss positions
+  will lose if all ships are hit
 
+Ship
+  has a position when created
+  can be hit
+  will record number of hits
+  can be missed
+  will not be hit when it is missed
+  is not sunk initially
+  can be sunk
+
+Submarine
+  has size 2
+  knows all positions when facing north
+  knows all positions when facing east
+  knows all positions when facing south
+  knows all positions when facing west
+  gets hit in any of the positions it is in
+ ```
+
+```ruby
+2.1.5 :002 > p = Player.new
+ => #<Player:0x007fa3a200dfa0 @board=#<Board:0x007fa3a200df78 @ships=[]>, @hits=[], @misses=[]> 
+2.1.5 :004 > p.place Destroyer, 'F5', :S
+ => [#<Destroyer:0x007fa3a11794f8 @direction=:S, @position="F5", @start_position="F5", @size=3, @hits=0>] 
+2.1.5 :005 > p.lost?
+ => false 
+2.1.5 :006 > p.receive_hit 'F5'
+ => :hit 
+2.1.5 :007 > p.lost?
+ => false 
+2.1.5 :008 > p.receive_hit 'F6'
+ => :hit 
+2.1.5 :009 > p.receive_hit 'F7'
+ => :hit 
+2.1.5 :010 > p.lost?
+ => true 
+```
+
+Note there is lots of room for refactoring here ...
 
 Version ‘Car’:
 --------------

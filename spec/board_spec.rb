@@ -7,6 +7,8 @@ describe Board do
   let(:ship){double :ship, position: 'A1', sunk?: false, hit: :hit}
   let(:illegal_ship){double :ship, position: ['A1','@1'], sunk?: false, hit: :hit}
   let(:sub){double :sub, position: ['A1','A2'], sunk?: false, hit: :hit}
+  let(:destroyer){double :destroyer, position: ['A2','B2','B2'], sunk?: false, hit: :hit}
+  let(:other_destroyer){double :destroyer, position: ['A4','B4','B4'], sunk?: false, hit: :hit}
 
   it 'reports missed hit when no ship at position' do
     expect(board.receive_hit('A1')).to eq :miss
@@ -17,9 +19,19 @@ describe Board do
     expect(board.ships.first.position).to eq 'A1'
   end
 
-  it 'does not allow ships to overlap' do
+  it 'does not allow ships to overlap on their starting position' do
     board.place(ship)
     expect{board.place(sunk_ship)}.to raise_error 'collides with existing ship'
+  end
+
+  it 'does not allow ships to overlap on their other positions' do
+    board.place(sub)
+    board.place(other_destroyer)
+    expect{board.place(destroyer)}.to raise_error 'collides with existing ship'
+  end
+
+  it 'does not allow ships outside the board' do
+    expect{board.place(illegal_ship)}.to raise_error 'cannot place ship outside board'
   end
 
   it 'can receive a hit on a ship' do
