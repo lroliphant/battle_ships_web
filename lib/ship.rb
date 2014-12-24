@@ -18,12 +18,3 @@ class Ship
     @hits >= @size
   end
 end
-
-class RowingBoat < Ship
-end
-
-class Submarine < Ship
-  def initialize position, direction
-    super position, direction, 2
-  end
-end

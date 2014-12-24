@@ -15,10 +15,6 @@ describe Board do
     expect(board.ships.first.position).to eq 'A1'
   end
 
-  xit 'does not allow ships to overlap' do
-
-  end
-
   it 'can receive a hit on a ship' do
     board.place(ship)
     expect(board.receive_hit('A1')).to eq :hit

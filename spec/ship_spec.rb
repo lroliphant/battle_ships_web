@@ -36,16 +36,3 @@ describe Ship do
   end
 
 end
-
-describe Submarine do
-  let(:sub){Submarine.new 'A1', :N}
-  it 'has size 2' do
-    expect(sub.size).to eq 2
-  end
-
-  xit 'knows all positions based on direction' do
-  end
-
-  xit 'gets hit in any of the positions it is in' do
-  end
-end
