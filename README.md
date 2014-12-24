@@ -1,7 +1,10 @@
+BattleShips MVP Sequence
+======================
 
+![mvp sequence](https://pbs.twimg.com/media/ByjAazeCEAMKg0Q.png)
 
 Version ‘Skateboard’:
-—————
+------------
 
 ```sh
 Board
@@ -214,3 +217,5 @@ Note there is lots of room for refactoring here ...
 
 Version ‘Car’:
 --------------
+
+Coming soon!
