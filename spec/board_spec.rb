@@ -6,6 +6,7 @@ describe Board do
   let(:sunk_ship){double :ship, position: 'A1', sunk?: true, hit: :hit}
   let(:ship){double :ship, position: 'A1', sunk?: false, hit: :hit}
   let(:illegal_ship){double :ship, position: ['A1','@1'], sunk?: false, hit: :hit}
+  let(:sub){double :sub, position: ['A1','A2'], sunk?: false, hit: :hit}
 
   it 'can receive a hit on water' do
     expect(board.receive_hit('A1')).to eq :miss
@@ -28,6 +29,11 @@ describe Board do
   it 'can receive a hit on a ship' do
     board.place(ship)
     expect(board.receive_hit('A1')).to eq :hit
+  end
+
+  it 'can receive a hit on a sub' do
+    board.place(sub)
+    expect(board.receive_hit('A2')).to eq :hit
   end
 
   it 'can report if all ships are sunk' do
