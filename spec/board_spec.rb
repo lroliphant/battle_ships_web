@@ -5,7 +5,7 @@ describe Board do
   let(:board){Board.new}
   let(:ship){double :ship, position: 'A1'}
 
-  it 'can receive a hit on water' do
+  it 'reports missed hit when no ship at position' do
     expect(board.receive_hit('A1')).to eq :miss
   end
 

@@ -4,7 +4,7 @@ describe Ship do
 
   let(:ship){Ship.new 'A1'}
 
-  it 'can have a position set' do
+  it 'has a position when created' do
     expect(ship.position).to eq 'A1'
   end
 
