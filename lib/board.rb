@@ -5,7 +5,7 @@ class Board
   end
 
   def receive_hit position
-    @ships.map(&:position).include?(position) ? :hit : :miss
+    @ships.map{|ship| ship.hit(position)}.include?(:hit) ? :hit : :miss
   end
 
   def place ship
@@ -14,5 +14,10 @@ class Board
 
   def ships
     @ships
+  end
+
+  def all_sunk? 
+    return false if @ships.empty?
+    !@ships.map(&:sunk?).include? false
   end
 end
