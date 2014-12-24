@@ -9,6 +9,7 @@ class Board
   end
 
   def place ship
+    raise 'collides with existing ship' if collision? ship
     @ships << ship
   end
 
@@ -19,5 +20,11 @@ class Board
   def all_sunk? 
     return false if @ships.empty?
     !@ships.map(&:sunk?).include? false
+  end
+
+  private
+
+  def collision? ship
+    @ships.map(&:position).include?(ship.position)
   end
 end

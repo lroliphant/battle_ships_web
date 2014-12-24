@@ -86,10 +86,61 @@ Ship
 Version ’Bike’:
 -----------
 
+```sh
+Board
+  reports missed hit when no ship at position
+  can have a ship
+  does not allow ships to overlap
+  can receive a hit on a ship
+  can receive a hit on a sub
+  can report if all ships are sunk
+  can report if not all ships are sunk
 
+Player
+  can lose
+  can place ships
+  can tell us when a ship is hit
+  can report hit positions
+  can report miss positions
+  will lose if all ships are hit
 
+Ship
+  has a position when created
+  can be hit
+  will record number of hits
+  can be missed
+  will not be hit when it is missed
+  is not sunk initially
+  can be sunk
 
+Submarine
+  has size 2
+  knows all positions when facing north
+  knows all positions when facing east
+  knows all positions when facing south
+  knows all positions when facing west
+  gets hit in any of the positions it is in
+```
 
+```ruby
+2.1.5 :002 > sub = Submarine.new 'C4',:N
+ => #<Submarine:0x007ff1fc2de038 @direction=:N, @position="C4", @start_position="C4", @size=2, @hits=0> 
+2.1.5 :003 > board = Board.new
+ => #<Board:0x007ff1fc2d4c68 @ships=[]> 
+2.1.5 :004 > board.place sub
+ => [#<Submarine:0x007ff1fc2de038 @direction=:N, @position="C4", @start_position="C4", @size=2, @hits=0>] 
+2.1.5 :005 > board.receive_hit 'H1'
+ => :miss 
+2.1.5 :006 > board.receive_hit 'D5'
+ => :miss 
+2.1.5 :007 > board.receive_hit 'C3'
+ => :hit 
+2.1.5 :008 > board.receive_hit 'C4'
+ => :hit 
+2.1.5 :009 > sub
+ => #<Submarine:0x007ff1fc2de038 @direction=:N, @position="C4", @start_position="C4", @size=2, @hits=2> 
+2.1.5 :010 > board.all_sunk?
+```
 
 
 Version ‘Motorbike’:
