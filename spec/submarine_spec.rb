@@ -1,13 +1,12 @@
 require 'submarine'
-require 'byebug'
 
 describe Submarine do
 
-  let(:sub){Submarine.new 'A2', :N}
-  let(:sub_north){Submarine.new 'B2', :N}
-  let(:sub_east){Submarine.new 'B2', :E}
-  let(:sub_south){Submarine.new 'B2', :S}
-  let(:sub_west){Submarine.new 'B2', :W}
+  let(:sub){Submarine.new 'A2', :north}
+  let(:sub_north){Submarine.new 'B2', :north}
+  let(:sub_east){Submarine.new 'B2', :east}
+  let(:sub_south){Submarine.new 'B2', :south}
+  let(:sub_west){Submarine.new 'B2', :west}
 
   it 'has size 2' do
     expect(sub.size).to eq 2
@@ -33,4 +32,9 @@ describe Submarine do
     expect(sub_north.hit 'B2').to eq :hit
     expect(sub_north.hit 'B1').to eq :hit
   end
+
+  it 'should handle collisions correctly'
+
+  it 'should not be able to be hit more than once in the same place'
+
 end

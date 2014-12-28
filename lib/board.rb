@@ -26,17 +26,10 @@ class Board
   private
 
   def collision? ship
-    s_position = check_for_set_minus ship.position 
     @ships.each do |s|
-      position = check_for_set_minus s.position
-      return true unless position - s_position == position
+      return true if s.collided? ship
     end
     false
-  end
-
-  def check_for_set_minus position
-    position = [position] unless position.respond_to? :-
-    position
   end
 
   def illegal_position? ship

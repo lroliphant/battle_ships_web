@@ -3,8 +3,8 @@ require 'board'
 describe Board do
 
   let(:board){Board.new}
-  let(:sunk_ship){double :ship, position: 'A1', sunk?: true, hit: :hit}
-  let(:ship){double :ship, position: 'A1', sunk?: false, hit: :hit}
+  let(:sunk_ship){double :ship, position: ['A1'], sunk?: true, hit: :hit}
+  let(:ship){double :ship, position: ['A1'], sunk?: false, hit: :hit}
   let(:illegal_ship){double :ship, position: ['A1','@1'], sunk?: false, hit: :hit}
   let(:sub){double :sub, position: ['A1','A2'], sunk?: false, hit: :hit}
   let(:destroyer){double :destroyer, position: ['A2','B2','B2'], sunk?: false, hit: :hit}
@@ -16,18 +16,23 @@ describe Board do
 
   it 'can have a ship' do
     board.place(ship)
-    expect(board.ships.first.position).to eq 'A1'
+    expect(board.ships.first.position.first).to eq 'A1'
   end
 
-  it 'does not allow ships to overlap on their starting position' do
-    board.place(ship)
-    expect{board.place(sunk_ship)}.to raise_error 'collides with existing ship'
-  end
+  context 'collisions' do
+    it 'does not allow ships to overlap on their starting position' do
+      board.place(ship)
+      expect(ship).to receive(:collided?).and_return(true)
+      expect{board.place(sunk_ship)}.to raise_error 'collides with existing ship'
+    end
 
-  it 'does not allow ships to overlap on their other positions' do
-    board.place(sub)
-    board.place(other_destroyer)
-    expect{board.place(destroyer)}.to raise_error 'collides with existing ship'
+    it 'does not allow ships to overlap on their other positions' do
+      board.place(sub)
+      allow(sub).to receive(:collided?).and_return(false)
+      board.place(other_destroyer)
+      expect(other_destroyer).to receive(:collided?).and_return(true)
+      expect{board.place(destroyer)}.to raise_error 'collides with existing ship'
+    end
   end
 
   it 'does not allow ships outside the board' do
