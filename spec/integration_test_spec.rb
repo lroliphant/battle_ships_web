@@ -28,4 +28,5 @@ describe 'Battleships'  do
     expect(player.hits).to eq ['A1', 'E6', 'C4', 'E9', 'B1', 'C1', 'E7', 'C5', 'C3', 'F9']
     expect(player.lost?).to be true
   end
+  
 end

@@ -218,4 +218,110 @@ Note there is lots of room for refactoring here ...
 Version ‘Car’:
 --------------
 
-Coming soon!
+```sh
+Board
+  reports missed hit when no ship at position
+  can have a ship
+  does not allow ships outside the board
+  can receive a hit on a ship
+  can receive a hit on a sub
+  can report if all ships are sunk
+  can report if not all ships are sunk
+  collisions
+    does not allow ships to overlap on their starting position
+    does not allow ships to overlap on their other positions
+
+Destroyer
+  has size 3
+  knows all positions when facing north
+  knows all positions when facing east
+  knows all positions when facing south
+  knows all positions when facing west
+  gets hit in any of the positions it is in
+  should handle collisions on start position
+  should handle collisions on location other than start position
+  should not be able to be hit more than once in the same place
+
+Battleships
+  should support a game with many ships being hit and missed
+
+Player
+  can lose
+  can place ships
+  can tell us when a ship is hit
+  can report hit positions
+  can report miss positions
+  will lose if all ships are hit
+
+Ship
+  has a position when created
+  can be hit
+  will record number of hits
+  can be missed
+  will not be hit when it is missed
+  is not sunk initially
+  can be sunk
+  can be collided with
+
+Submarine
+  has size 2
+  knows all positions when facing north
+  knows all positions when facing east
+  knows all positions when facing south
+  knows all positions when facing west
+  gets hit in any of the positions it is in
+  should handle collisions on start position
+  should handle collisions on location other than start position
+  should not be able to be hit more than once in the same place
+```
+
+```ruby
+2.1.5 :001 > player = Player.new
+ => #<Player:0x007f970a1fa010 @board=#<Board:0x007f970a1f9fe8 @ships=[], @hits=[], @misses=[]>, @hits=[], @misses=[]> 
+2.1.5 :002 > player.place(Destroyer,'C5',:north)
+ => [#<Destroyer:0x007f970a1f0588 @direction=:north, @start_position="C5", @size=3, @position=["C5", "C4", "C3"], @hits=[]>] 
+2.1.5 :003 > player.place(Submarine,'E7',:north)
+ => [#<Destroyer:0x007f970a1f0588 @direction=:north, @start_position="C5", @size=3, @position=["C5", "C4", "C3"], @hits=[]>, #<Submarine:0x007f970a1e2dc0 @direction=:north, @start_position="E7", @size=2, @position=["E7", "E6"], @hits=[]>] 
+2.1.5 :004 > player.place(Destroyer,'A1',:east)
+ => [#<Destroyer:0x007f970a1f0588 @direction=:north, @start_position="C5", @size=3, @position=["C5", "C4", "C3"], @hits=[]>, #<Submarine:0x007f970a1e2dc0 @direction=:north, @start_position="E7", @size=2, @position=["E7", "E6"], @hits=[]>, #<Destroyer:0x007f970a1d94c8 @direction=:east, @start_position="A1", @size=3, @position=["A1", "B1", "C1"], @hits=[]>] 
+2.1.5 :005 > player.place(Submarine,'F9',:west)
+ => [#<Destroyer:0x007f970a1f0588 @direction=:north, @start_position="C5", @size=3, @position=["C5", "C4", "C3"], @hits=[]>, #<Submarine:0x007f970a1e2dc0 @direction=:north, @start_position="E7", @size=2, @position=["E7", "E6"], @hits=[]>, #<Destroyer:0x007f970a1d94c8 @direction=:east, @start_position="A1", @size=3, @position=["A1", "B1", "C1"], @hits=[]>, #<Submarine:0x007f970a1cb918 @direction=:west, @start_position="F9", @size=2, @position=["F9", "E9"], @hits=[]>] 
+2.1.5 :006 > player.receive_hit('A1')
+ => :hit 
+2.1.5 :007 > player.receive_hit('B2')
+ => :miss 
+2.1.5 :008 > player.receive_hit('E6')
+ => :hit 
+2.1.5 :009 > player.receive_hit('C4')
+ => :hit 
+2.1.5 :010 > player.receive_hit('E9')
+ => :hit 
+2.1.5 :011 > player.receive_hit('C7')
+ => :miss 
+2.1.5 :012 > player.receive_hit('G6')
+ => :miss 
+2.1.5 :013 > player.receive_hit('H7')
+ => :miss 
+2.1.5 :014 > player.hits
+ => ["A1", "E6", "C4", "E9"] 
+2.1.5 :015 > player.misses
+ => ["B2", "C7", "G6", "H7"] 
+2.1.5 :016 > player.lost?
+ => false 
+2.1.5 :017 > player.receive_hit('B1')
+ => :hit 
+2.1.5 :018 > player.receive_hit('C1')
+ => :hit 
+2.1.5 :019 > player.receive_hit('E7')
+ => :hit 
+2.1.5 :020 > player.receive_hit('C5')
+ => :hit 
+2.1.5 :021 > player.receive_hit('C3')
+ => :hit 
+2.1.5 :022 > player.receive_hit('F9')
+ => :hit 
+2.1.5 :023 > player.hits
+ => ["A1", "E6", "C4", "E9", "B1", "C1", "E7", "C5", "C3", "F9"] 
+2.1.5 :024 > player.lost?
+ => true 
+```
