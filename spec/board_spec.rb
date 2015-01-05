@@ -58,4 +58,5 @@ describe Board do
     board.place(ship)
     expect(board).not_to be_all_sunk
   end
+
 end

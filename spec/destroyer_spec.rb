@@ -2,7 +2,7 @@ require 'destroyer'
 
 describe Destroyer do 
 
-  let(:destroyer){Destroyer.new 'C3',:south}
+  let(:destroyer){Destroyer.new 'A1',:south}
   let(:destroyer_north){Destroyer.new 'C3',:north}
   let(:destroyer_east){Destroyer.new 'C3',:east}
   let(:destroyer_south){Destroyer.new 'C3',:south}
@@ -34,10 +34,20 @@ describe Destroyer do
     expect(destroyer_north.hit 'C1').to eq :hit
   end
 
-  it 'should handle collisions correctly'
+  it 'should handle collisions on start position' do
+    expect(destroyer.collided? destroyer).to be true
+  end
 
-  it 'should not be able to be hit more than once in the same place'
+  it 'should handle collisions on location other than start position' do
+    expect(destroyer.collided? destroyer_west).to be true
+  end
 
+  it 'should not be able to be hit more than once in the same place' do
+    destroyer.hit 'A3'
+    expect(destroyer.hits).to eq ['A3']
+    destroyer.hit 'A3'
+    expect(destroyer.hits).to eq ['A3']
+  end
   # can we automatically rerun all ship tests? only by declaring them as shared examples ...
 
 	

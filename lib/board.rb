@@ -2,6 +2,8 @@ class Board
 
   def initialize
     @ships = []
+    @hits = []
+    @misses = []
   end
 
   def receive_hit position

@@ -6,24 +6,22 @@ class Ship
     @start_position = start_position
     @size = size
     calculate_full_position
-    @hits = 0
+    @hits = []
   end
 
   def hit position
     return :miss unless self.position.include? position 
-    @hits+=1
+    hits << position unless hits.include? position
     :hit
   end
 
-  # needs better tests!!!!!!
-
   def collided? other_ship
-    self.position == other_ship.position
+    (self.position - other_ship.position).size < size
   end
 
   def sunk?
-    @hits >= @size
-  end
+    @hits.size >= @size
+  end 
 
   private 
 

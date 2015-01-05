@@ -14,7 +14,7 @@ describe Ship do
 
   it 'will record number of hits' do
     ship.hit 'A1'
-    expect(ship.hits).to eq 1
+    expect(ship.hits).to eq ['A1']
   end
 
   it 'can be missed' do
@@ -23,7 +23,7 @@ describe Ship do
 
   it 'will not be hit when it is missed' do
     ship.hit 'B1'
-    expect(ship.hits).to eq 0
+    expect(ship.hits).to eq []
   end
 
   it 'is not sunk initially' do
