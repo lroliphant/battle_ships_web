@@ -10,27 +10,27 @@ class Ship
   end
 
   def hit position
-    return :miss unless self.position.include? position 
+    return :miss unless self.position.include? position
     hits << position unless hits.include? position
     :hit
   end
 
   def collided? other_ship
-    (self.position - other_ship.position).size < size
+    (position - other_ship.position).size < size
   end
 
   def sunk?
     @hits.size >= @size
-  end 
+  end
 
-  private 
+  private
 
   attr_reader :direction, :start_position
 
   def calculate_full_position
     @position = [start_position]
-    (@size-1).times  do
-      @position << self.send(@direction,@position.last)
+    (@size - 1).times do
+      @position << send(@direction, @position.last)
     end
   end
 
@@ -49,14 +49,4 @@ class Ship
   def north position
     position[0] + (position[1].to_i - 1).to_s
   end
-
 end
-
-class RowingBoat < Ship
-end
-
-
-
-
-
-
