@@ -13,6 +13,7 @@ group :test do
   gem 'cucumber-sinatra'
   gem 'launchy'
   gem 'rspec'
+  gem 'rubocop'
 end
 
 # so running rspec will automatically run bundle???
