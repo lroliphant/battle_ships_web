@@ -4,18 +4,22 @@ gem 'sinatra'
 
 group :development do
   gem 'shotgun'
+  gem 'rerun'
 end
 
 group :test do
   gem 'byebug'
-	gem 'capybara'
+  gem 'capybara'
   gem 'cucumber'
   gem 'cucumber-sinatra'
   gem 'launchy'
   gem 'rspec'
   gem 'rubocop'
+  gem 'coveralls', require: false
+  gem 'simplecov'
 end
 
 # so running rspec will automatically run bundle???
 # will need a little more on what sinatra is  ...
-# could do with some explanation of what the files added by cucumber-sinatra actually are ...
+# could do with some explanation of what the files
+# added by cucumber-sinatra actually are ...

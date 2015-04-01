@@ -34,4 +34,10 @@ describe Player do
     expect(subject.lost?).to be true
   end
 
+  it 'holds an index of all players' do
+    player2 = described_class.new
+    expect(described_class.get_player(player2.object_id)).to eq player2
+    expect(described_class.get_player(subject.object_id)).to eq subject
+  end
+
 end
