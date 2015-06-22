@@ -1,0 +1,19 @@
+<% if @name != '' && @name %>
+    Hello,  <%= @name %> Welcome to Battleship!
+<% else %>
+  <form action="/name">
+    What's your name?
+    <input type="text" name="name">
+    <input type="submit" value="Submit">
+  </form>
+<% end %>
+
+<!-- <% if @name %>
+  Hello, <%= @name %>!
+<% else %>
+  <form action="/name">
+    What's your name?
+    <input type="text" name="name">
+    <input type="submit" value="Submit">
+  </form>
+<% end %> -->
