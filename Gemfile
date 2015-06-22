@@ -1,5 +1,13 @@
 source 'https://rubygems.org'
 
-gem 'rspec'
-gem 'rubocop'
-gem 'byebug'
+gem 'sinatra'
+
+group :development, :test do
+  gem 'capybara'
+  gem 'launchy'
+  gem 'rspec'
+  gem 'rspec-sinatra'
+  gem 'rubocop'
+  gem 'shotgun'
+  gem 'byebug'
+end
